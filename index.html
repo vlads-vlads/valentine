@@ -52,7 +52,7 @@ button {
 #noBtn {
     background-color: white;
     color: #ff4d6d;
-    position: absolute;
+    position: fixed; /* ВАЖНО: fixed вместо absolute */
 }
 
 .heart {
@@ -102,7 +102,7 @@ let noMessages = [
 let clickCount = 0;
 let yesScale = 1;
 
-function moveButton() {
+    function moveButton() {
     let btn = document.getElementById("noBtn");
 
     clickCount++;
@@ -111,19 +111,22 @@ function moveButton() {
         btn.innerText = noMessages[clickCount];
     }
 
-    // Получаем размеры кнопки
-    let btnWidth = btn.offsetWidth;
-    let btnHeight = btn.offsetHeight;
+    // даём браузеру обновить размер после смены текста
+    setTimeout(() => {
+        let btnWidth = btn.offsetWidth;
+        let btnHeight = btn.offsetHeight;
 
-    // Ограничиваем координаты
-    let maxX = window.innerWidth - btnWidth;
-    let maxY = window.innerHeight - btnHeight;
+        let padding = 10; // небольшой отступ от краёв
 
-    let x = Math.random() * maxX;
-    let y = Math.random() * maxY;
+        let maxX = window.innerWidth - btnWidth - padding;
+        let maxY = window.innerHeight - btnHeight - padding;
 
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
+        let x = Math.random() * maxX;
+        let y = Math.random() * maxY;
+
+        btn.style.left = x + "px";
+        btn.style.top = y + "px";
+    }, 10);
 
     yesScale += 0.15;
     document.getElementById("yesBtn").style.transform = `scale(${yesScale})`;
