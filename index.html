@@ -111,8 +111,16 @@ function moveButton() {
         btn.innerText = noMessages[clickCount];
     }
 
-    let x = Math.random() * (window.innerWidth - 150);
-    let y = Math.random() * (window.innerHeight - 80);
+    // Получаем размеры кнопки
+    let btnWidth = btn.offsetWidth;
+    let btnHeight = btn.offsetHeight;
+
+    // Ограничиваем координаты
+    let maxX = window.innerWidth - btnWidth;
+    let maxY = window.innerHeight - btnHeight;
+
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
 
     btn.style.left = x + "px";
     btn.style.top = y + "px";
@@ -120,6 +128,7 @@ function moveButton() {
     yesScale += 0.15;
     document.getElementById("yesBtn").style.transform = `scale(${yesScale})`;
 }
+
 
 function yesClick() {
     document.body.innerHTML = `
